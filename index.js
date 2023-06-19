@@ -7,6 +7,9 @@ const cors = require("cors");
 const favicon = require("serve-favicon");
 require("dotenv").config();
 
+const booksRouter = require("./routers/books.router")
+
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
 const app = express();
@@ -33,7 +36,7 @@ app.use(morgan("dev"));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(express.json());
 
-// app.use("/api/v1/books", booksRouter);
+app.use("/api/v1/books", booksRouter);
 
 app.all("*", (req, res, next) => {
   const error = new Error("No route found");
@@ -50,4 +53,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(3001, () => console.log(`listening on 3001`));
+app.listen(8080, () => console.log(`listening on 3001`));
