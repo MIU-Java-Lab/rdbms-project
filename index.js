@@ -7,7 +7,9 @@ const cors = require("cors");
 const favicon = require("serve-favicon");
 require("dotenv").config();
 
-const booksRouter = require("./routers/books.router")
+const booksRouter = require("./routers/books.router");
+const usersRouter = require("./routers/user.router");
+const libraryRouter = require("./routers/library.router");
 
 const MONGODB_URI = process.env.NODE_ENV ? 'mongodb://127.0.0.1:27017' : process.env.MONGODB_URI;
 
@@ -36,6 +38,8 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(express.json());
 
 app.use("/api/v1/books", booksRouter);
+app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/libraries", libraryRouter);
 
 app.all("*", (req, res, next) => {
   const error = new Error("No route found");
