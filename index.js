@@ -9,8 +9,7 @@ require("dotenv").config();
 
 const booksRouter = require("./routers/books.router")
 
-
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.NODE_ENV ? 'mongodb://localhost:27017' : process.env.MONGODB_URI;
 
 const app = express();
 app.use(cors());
