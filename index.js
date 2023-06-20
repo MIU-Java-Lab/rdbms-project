@@ -9,12 +9,7 @@ require("dotenv").config();
 
 const booksRouter = require("./routers/books.router")
 
-<<<<<<< Updated upstream
-
-const MONGODB_URI = process.env.MONGODB_URI;
-=======
 const MONGODB_URI = process.env.NODE_ENV ? 'mongodb://127.0.0.1:27017' : process.env.MONGODB_URI;
->>>>>>> Stashed changes
 
 const app = express();
 app.use(cors());
