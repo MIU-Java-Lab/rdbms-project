@@ -20,6 +20,6 @@ const librarySchema = new mongoose.Schema(
     }
 );
 
-const libraryModel = mongoose.model("Libraries", librarySchema);
+const libraryModel = mongoose.model("libraries", librarySchema);
 
 module.exports = libraryModel;

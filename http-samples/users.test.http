@@ -1,89 +1,32 @@
-
-GET http://localhost:3001/api/v1/users
-Content-Type: application/json
-Authorization: Bearer xxx
-
-###
-POST  http://localhost:3001/api/v1/users/signup
+GET http://localhost:8080/api/v1/users
 Content-Type: application/json
 
-{  "email": "zaman@miu.edu", "password": "123", "fullname": "User Fairfield" }
-
-
 ###
-POST  http://localhost:3001/api/v1/users/login
+GET http://localhost:8080/api/v1/users/64926f34e62d02d226599a0a
 Content-Type: application/json
 
-{  "email": "zaman@miu.edu", "password": "123" }
+###
+POST  http://localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "email": "ismoil.793@miu.edu",
+  "phone": "123456789",
+  "firstName": "Ismoil",
+  "lastName": "Shokirov",
+  "address": "Fairfield IA",
+  "title": "student"
+}
 
 
 ###
+PUT http://localhost:8080/api/v1/users/64926f34e62d02d226599a0a
+Content-Type: application/json
 
-GET http://localhost:3001/api/v1/automobiles
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE1MTllY2U2ZTEyOGRhODViZDk0NWMiLCJlbWFpbCI6InphbWFuQG1pdS5lZHUiLCJmdWxsbmFtZSI6Im1vbmlyIHphbWFuIiwiaWF0IjoxNjc5MjU4ODU5fQ._EHEpjU-IkG1GnWCYujkKNJYjOYvW7wBHCjzLeJKoc8
+{
+  "address": "Fairfield IA"
+}
 
-
-
-#
-
-{  "email": "ismoil@miu.edu", "password": "123", "fullname": "Ismoil Shavkat" , "location": "{'type': 'Point','coordinates': [-91.973419,41.006950]}"}
-
-{  "email": "biruk@miu.edu", "password": "123", "fullname": "Biruk Yemane" , "location":["-90.973419","41.006950"]}
-
-{  "email": "tushar@miu.edu", "password": "123", "fullname": "Tushar Kumar" , "location":["-90.973419","41.006950"]}
-
-{  "email": "zaman7@miu.edu", "password": "123", "fullname": "Monir Zaman" , "location": "{'type': 'Point', 'coordinates': [-91.973419,41.006950]}"}
-
-
-
-# 
-
-#sample lat long
-
-//Fairfield, IA, USA
-//lat: 41.006950, long: -91.973419
-
-//     Ottumwa, IA, USA
-//lat: 41.016621, long: -92.430550
-
-// Iowa City
-// Longitude: -91.530167
-// Latitude: 41.661129
-
-//Fort Madison 
-//lat 40.629763 and long -91.314535 respectively. 
-# 
-
-"location2": "{'type':'Point', 'coordinates': [-91.973419,41.006950]}"
-
- "location": "{
-        "type": "Point",
-        "coordinates": [
-            -91.973419,
-            41.006950
-        ]
-    }"
-
-    location:{
-    // GeoJSON Point
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: false
-    },
-    coordinates: {
-        type: [Number],
-        required: false,
-        index: '2dsphere',
-        sparse: true,
-    },
-    formattedAddress: String,
-    street: String,
-    city: String,
-    state: String,
-    zipcode: String,
-    country: String
-});
-
-
-location2: { type: 'Point', coordinates: [ -91.973419, 41.00695 ] }
+###
+DELETE http://localhost:8080/api/v1/users/64926f43e62d02d226599a11
+Content-Type: application/json
