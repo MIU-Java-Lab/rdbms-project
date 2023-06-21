@@ -14,4 +14,4 @@ const userSchema = mongoose.Schema({
     title: String,
 });
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("users", userSchema);

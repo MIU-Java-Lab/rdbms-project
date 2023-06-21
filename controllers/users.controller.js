@@ -2,7 +2,8 @@ const User = require("../models/user.model");
 
 async function getAllUsers(req, res, next) {
     try {
-        const users = await User.find({});
+        const queryParams = req.query;
+        const users = await User.find(queryParams);
         res.json({data: users});
     } catch (e) {
         next(e);
