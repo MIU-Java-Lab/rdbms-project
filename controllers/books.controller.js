@@ -158,29 +158,34 @@ async function calculateOverdueFees(req, res, next) {
     try {
         const {filterParam} = req.params;
         const currentDate = new Date();
-
         const overdueBooks = await Book.find({
-            "borrower.userId": filterParam,
-            "borrower.returnDate": {$lt: currentDate}
+            "borrower.userId": filterParam
         });
-
         let totalOverdueFees = 0;
-
         overdueBooks.forEach((book) => {
-            const returnDate = book.borrower.returnDate;
-            const borrowDate = book.borrower.borrowDate;
-            const daysOverdue = Math.floor((returnDate - borrowDate) / (1000 * 60 * 60 * 24));
-            const overdueFeePerDay = book.borrower.fee; // Assuming an overdue fee of $5 per day
-            if (daysOverdue > 15) {
-                const overdueFee = daysOverdue * overdueFeePerDay;
-                totalOverdueFees += overdueFee;
+            const returnDate = book.borrower?.returnDate;
+            const borrowDate = book.borrower?.borrowDate;
+            const overdueFeePerDay = book.borrower?.fee;
+
+            if (returnDate != undefined) {
+                const daysOverdueReturn = Math.floor((returnDate - borrowDate) / (1000 * 60 * 60 * 24));
+                if (daysOverdueReturn > 21) {
+                    const overdueFee = (daysOverdueReturn - 21) * overdueFeePerDay;
+                    totalOverdueFees += overdueFee;
+                }
+            } else {
+                const daysOverdueWithOuthReturn = Math.floor((currentDate - borrowDate) / (1000 * 60 * 60 * 24));
+                if (daysOverdueWithOuthReturn > 21) {
+
+                    const overdueFee = (daysOverdueWithOuthReturn - 21) * overdueFeePerDay;
+
+                    totalOverdueFees += overdueFee;
+                }
             }
-
         });
-
-        console.log(totalOverdueFees);
         res.json({success: true, data: totalOverdueFees});
         return totalOverdueFees;
+
     } catch (error) {
         next(error);
     }
@@ -193,8 +198,8 @@ async function addBorrower(req, res, next) {
 
         const book = await Book.findOne({_id: book_id})
 
-        if(!book) throw new Error("Book with given id not found!")
-        if(book.borrower?.userId) throw new Error("Book is already borrowed")
+        if (!book) throw new Error("Book with given id not found!")
+        if (book.borrower?.userId) throw new Error("Book is already borrowed")
 
         const result = await Book.updateOne({_id: book_id}, {
             borrower
